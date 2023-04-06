@@ -93,9 +93,17 @@ export const TransactionTypeButton = styled(
     color: ${({ theme, variant }) =>
       variant === 'income' ? theme['green-300'] : theme['red-300']};
   }
+
+  &[data-state='unchecked']:hover {
+    background: ${({ theme }) => theme['gray-600']};
+  }
   &[data-state='checked'] {
     color: ${({ theme }) => theme.white};
     background: ${({ theme, variant }) =>
       variant === 'income' ? theme['green-500'] : theme['red-500']};
+
+    svg {
+      color: ${({ theme }) => theme.white};
+    }
   }
 `
