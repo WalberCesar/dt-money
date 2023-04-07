@@ -11,6 +11,7 @@ export interface Transaction {
 
 export interface TransactionContentProps {
   transactions: Transaction[]
+  fetchTransaction(query?: string): Promise<void>
 }
 export interface TransactionContextProviderProps {
   children: ReactNode
