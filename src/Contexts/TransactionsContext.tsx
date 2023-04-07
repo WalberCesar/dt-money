@@ -4,6 +4,7 @@ import {
   TransactionContentProps,
   TransactionContextProviderProps,
 } from './types'
+import { api } from '../lib/axios'
 
 export const TransactionContext = createContext({} as TransactionContentProps)
 
@@ -12,16 +13,13 @@ export function TransactionContextProvider({
 }: TransactionContextProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   async function fetchTransaction(query?: string) {
-    const url = new URL('http://localhost:3000/transactions')
+    const response = await api.get('/transactions', {
+      params: {
+        q: query,
+      },
+    })
 
-    if (query) {
-      url.searchParams.append('q', query)
-    }
-
-    const response = await fetch(url)
-    const data = await response.json()
-
-    setTransactions(data)
+    setTransactions(response.data)
   }
   useEffect(() => {
     fetchTransaction()
