@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
 import * as zod from 'zod'
@@ -21,9 +22,13 @@ const NewTransactionSchema = zod.object({
   type: zod.enum(['income', 'outcome']),
 })
 
+interface NewTransactionModalProps {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 type NewTransactionInputs = zod.infer<typeof NewTransactionSchema>
 
-export function NewTransactionModal() {
+export function NewTransactionModal({ setOpen }: NewTransactionModalProps) {
   const { createNewTransaction } = useTransaction()
   const {
     control,
@@ -42,6 +47,7 @@ export function NewTransactionModal() {
     const { category, description, price, type } = data
     await createNewTransaction({ category, description, price, type })
     reset()
+    setOpen(false)
   }
   return (
     <Dialog.Portal>
@@ -65,6 +71,7 @@ export function NewTransactionModal() {
             type="number"
             placeholder="Preço"
             required
+            min={1}
             {...register('price', { valueAsNumber: true })}
           />
           <input
