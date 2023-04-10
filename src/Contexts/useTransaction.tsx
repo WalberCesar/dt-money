@@ -1,7 +1,20 @@
-import { useContext } from 'react'
+import { useContextSelector } from 'use-context-selector'
 import { TransactionContext } from './TransactionsContext'
 
 export function useTransaction() {
-  const context = useContext(TransactionContext)
-  return context
+  const {
+    createNewTransaction,
+    fetchTransaction,
+    setTransactions,
+    transactions,
+  } = useContextSelector(TransactionContext, (context) => {
+    return context
+  })
+
+  return {
+    transactions,
+    fetchTransaction,
+    createNewTransaction,
+    setTransactions,
+  }
 }

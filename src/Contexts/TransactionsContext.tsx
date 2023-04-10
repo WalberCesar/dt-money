@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   NewTransactionProps,
   Transaction,
@@ -6,6 +6,7 @@ import {
   TransactionContextProviderProps,
 } from './types'
 import { api } from '../lib/axios'
+import { createContext } from 'use-context-selector'
 
 export const TransactionContext = createContext({} as TransactionContentProps)
 
@@ -25,19 +26,22 @@ export function TransactionContextProvider({
     setTransactions(response.data)
   }
 
-  async function createNewTransaction(data: NewTransactionProps) {
-    const { category, description, price, type } = data
+  const createNewTransaction = useCallback(
+    async (data: NewTransactionProps) => {
+      const { category, description, price, type } = data
 
-    const response = await api.post('/transactions', {
-      category,
-      description,
-      price,
-      type,
-      createdAt: new Date(),
-    })
+      const response = await api.post('/transactions', {
+        category,
+        description,
+        price,
+        type,
+        createdAt: new Date(),
+      })
 
-    setTransactions((state) => [response.data, ...state])
-  }
+      setTransactions((state) => [response.data, ...state])
+    },
+    [],
+  )
   useEffect(() => {
     fetchTransaction()
   }, [])

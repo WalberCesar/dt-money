@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTransaction } from '../../../../Contexts/useTransaction'
+import { memo } from 'react'
 
 const searchFormSechema = zod.object({
   query: zod.string(),
@@ -11,7 +12,7 @@ const searchFormSechema = zod.object({
 
 type SearchFormInputs = zod.infer<typeof searchFormSechema>
 
-export function SearchForm() {
+function SearchFormComponent() {
   const { fetchTransaction } = useTransaction()
   const {
     register,
@@ -40,3 +41,5 @@ export function SearchForm() {
     </SearchFormContainer>
   )
 }
+
+export const SearchForm = memo(SearchFormComponent)

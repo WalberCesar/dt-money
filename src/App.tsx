@@ -9,9 +9,9 @@ export function App() {
     <ThemeProvider theme={defaultTheme}>
       <TransactionContextProvider>
         <Transactions />
-
-        <GlobalStyle />
       </TransactionContextProvider>
+
+      <GlobalStyle />
     </ThemeProvider>
   )
 }

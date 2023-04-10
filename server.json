@@ -15,6 +15,14 @@
       "type": "outcome",
       "createdAt": "2023-04-08T03:55:02.076Z",
       "id": 2
+    },
+    {
+      "category": "lazer",
+      "description": "cinema",
+      "price": 50,
+      "type": "outcome",
+      "createdAt": "2023-04-10T15:59:17.780Z",
+      "id": 3
     }
   ]
 }
